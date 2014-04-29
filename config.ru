@@ -1,7 +1,11 @@
 require 'dashing'
+require 'pathname'
+require 'dotenv'
+Dotenv.load
 
 configure do
-  set :auth_token, 'YOUR_AUTH_TOKEN'
+  set :config, YAML::load_file(Pathname.new("config.yml").realpath.to_s)
+  set :auth_token, ENV['auth_token']
 
   helpers do
     def protected!
